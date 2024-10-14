@@ -9,4 +9,23 @@ Route::get('/', function () {
 
 Route::get('/admin',[userController::class,'index'])->name('user.index');
 
+Route::group(['prefix'=>'admin/user'],function(){
+    Route::get('/create',[userController::class,'create'])->name('user.create');
+   
+});
+
+
+
+
+
+
+
+
+
+
+
+
+// Route::prefix('/admin/user')->group(function () {
+//     Route::get('/create',[userController::class,'create'])->name('user.create');
+// });
 

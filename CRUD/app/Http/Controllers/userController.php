@@ -21,7 +21,8 @@ class userController extends Controller
      */
     public function create()
     {
-        //
+        $title = 'Add New User';
+        return view('admin.add_edit_user',compact('title'));
     }
 
     /**
@@ -29,7 +30,7 @@ class userController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

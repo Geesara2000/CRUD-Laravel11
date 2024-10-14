@@ -7,7 +7,7 @@
     <h2>CRUD</h2>
 
     <div class="text-end mb-5">
-        <a href="" class="btn btn-primary">Add</a>
+        <a href="{{ route('user.create') }}" class="btn btn-primary">Add New User</a>
     </div>
 
     <div class="table-responsive">
