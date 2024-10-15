@@ -44,7 +44,7 @@
                         </td>
                         <td>
                             <a href="{{ route('user.edit',['id'=> $row->id]) }}" class="btn btn-primary">Edit</a>
-                            <button class="btn btn-danger">Delete</button>
+                            <button class="btn btn-danger" onclick="deleteFunction('{{ $row->id }}')">Delete</button>
                         </td>
                     </tr>
                 @empty
@@ -58,7 +58,27 @@
 
 </div>
 
+@include('admin.modal_delete')
+
 @endsection
+
+
+
+{{-- js part for delete user --}}
+
+@push('js')
+<script>
+    function deleteFunction(id) {
+        document.getElementById('delete_id').value = id;
+        $("#modalDelete").modal('show');
+    }
+</script>
+@endpush
+
+
+
+
+{{-- css part for profilpic display on table --}}
 
 <style>
     .showPhoto {

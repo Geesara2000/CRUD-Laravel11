@@ -123,9 +123,21 @@ class userController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
-}
+        $userData = User::findOrFail($request->user_id);
+        $userData->delete();
+        // delete photo if exists
+        if (!is_null($userData->photo)) {
+            $photo = public_path('uploads/' . $userData->photo);
+            if (File::exists($photo)) {
+                unlink($photo);
+            }
+        }
+        FacadesSession::flash('success', 'User deleted successfully');
+        return redirect()->route('user.index');
+    }
+
+
 
 }
