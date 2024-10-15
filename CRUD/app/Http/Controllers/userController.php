@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Contracts\Session\Session;
 
 class userController extends Controller
 {
@@ -12,7 +13,7 @@ class userController extends Controller
      */
     public function index()
     {
-        $users = User::latest('id')->get();
+        $users = User::oldest('id')->get();
         return view('admin.index',compact('users'));
     }
 
@@ -30,7 +31,34 @@ class userController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $request->validate(
+            [
+                'name' => 'required',
+                'email' => 'required|email|unique:users',
+                'photo' => 'mimes:png,jpeg,jpg|max:2048',
+            ]
+        );
+
+        $filePath = public_path('uploads');
+        $insert = new User();
+        $insert->name = $request->name;
+        $insert->email = $request->email;
+        $insert->password = bcrypt('password');
+
+
+        if ($request->hasfile('photo')) {
+            $file = $request->file('photo');
+            $file_name = time() . $file->getClientOriginalName();
+
+            $file->move($filePath, $file_name);
+            $insert->photo = $file_name;
+        }
+
+        $result = $insert->save();
+        Session() -> flash('success', 'User registered successfully');
+        return redirect()->route('user.index');
+
+
     }
 
     /**

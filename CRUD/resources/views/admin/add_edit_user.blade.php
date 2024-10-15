@@ -6,11 +6,11 @@
         <div class="form-appl">
             <h3>{{ $title }}</h3>
 
-            <form class="form1" action="{{ route('user.store') }}" method="GET" enctype="multipart/form-data">
+            <form class="form1" action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group col-md-12 mb-3">
                     <label for="">Your Name</label>
-                    <input class="form-control" type="text" name="name" placeholder="Enter Your Name">
+                    <input class="form-control" type="text" name="name" placeholder="Enter Your Name" value="{{ old('name') }}">
                     @error('name')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
@@ -18,7 +18,7 @@
 
                 <div class="form-group col-md-12 mb-3">
                     <label for="">Your Email</label>
-                    <input class="form-control" type="text" name="email" placeholder="Enter Your Email">
+                    <input class="form-control" type="text" name="email" placeholder="Enter Your Email" value="{{ old('email') }}">
                     @error('email')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror

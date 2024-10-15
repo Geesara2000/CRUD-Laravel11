@@ -9,6 +9,16 @@
     <div class="text-end mb-5">
         <a href="{{ route('user.create') }}" class="btn btn-primary">Add New User</a>
     </div>
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
 
     <div class="table-responsive">
         <table class="table table-hover">
@@ -23,10 +33,15 @@
             <tbody>
                 @forelse ($users as $index => $row)
                     <tr>
-                        <td>1</td>
-                        <td>geesra</td>
-                        <td>gee@gmail.com</td>
-                        <td>Photo</td>
+                        <td>{{ $index+1 }}</td>
+                        <td>{{ $row->name }}</td>
+                        <td>{{ $row->email }}</td>
+                        <td>
+                            <div class="showPhoto">
+                                <div class="imagePreview" style="@if ($row->photo != '') background-image:url('{{ url('/') }}/uploads/{{ $row->photo }}')@else background-image: url('{{ url('/img/avatar.png') }}') @endif;">
+                                </div>
+                            </div>
+                        </td>
                         <td>
                             <a href="" class="btn btn-primary">Edit</a>
                             <button class="btn btn-danger">Delete</button>
@@ -43,9 +58,21 @@
 
 </div>
 
-
-
-
-
-
 @endsection
+
+<style>
+    .showPhoto {
+        width: 51%;
+        height: 54px;
+        margin: auto;
+    }
+
+    .showPhoto>div {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+</style>
