@@ -23,7 +23,7 @@
     <div class="table-responsive">
         <table class="table table-hover">
             <thead class="table-primary">
-                <th>#</th>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Photo</th>

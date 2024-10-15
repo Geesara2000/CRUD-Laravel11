@@ -6,11 +6,11 @@
         <div class="form-appl">
             <h3>{{ $title }}</h3>
 
-            <form class="form1" action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
+            <form class="form1" action="@if (isset($edit->id)) {{ route('user.update', ['id' => $edit->id]) }}@else{{ route('user.store') }} @endif" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group col-md-12 mb-3">
                     <label for="">Your Name</label>
-                    <input class="form-control" type="text" name="name" placeholder="Enter Your Name" value="{{ old('name') }}">
+                    <input class="form-control" type="text" name="name" placeholder="Enter Your Name" value="@if (isset($edit->id)) {{ $edit->name }}@else {{ old('name') }} @endif">
                     @error('name')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
@@ -18,7 +18,7 @@
 
                 <div class="form-group col-md-12 mb-3">
                     <label for="">Your Email</label>
-                    <input class="form-control" type="text" name="email" placeholder="Enter Your Email" value="{{ old('email') }}">
+                    <input class="form-control" type="text" name="email" placeholder="Enter Your Email" value="@if (isset($edit->id)) {{ $edit->email }}@else {{ old('email') }} @endif">
                     @error('email')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
@@ -35,7 +35,7 @@
                         </div>
 
                         <div class="avatar-preview">
-                            <div id="imagePreview" style="background-image: url('{{ url('/img/avatar.png') }}')"></div>
+                            <div id="imagePreview" style="@if (isset($edit->id) && $edit->photo != '') background-image:url('{{ url('/') }}/uploads/{{ $edit->photo }}')@else background-image: url('{{ url('/img/avatar.png') }}') @endif"></div>
                         </div>
                     </div>
                     @error('photo')
