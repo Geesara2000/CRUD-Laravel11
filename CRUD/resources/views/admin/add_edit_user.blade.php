@@ -43,7 +43,7 @@
                     @enderror
                 </div>
 
-                <input type="submit" class="btn btn-primary" value="submit">
+                <input type="submit" class="btn btn-primary" value="@if (isset($edit->id))  update @else  submit  @endif">
                 <a class="btn btn-danger" href="{{ route('user.index') }}">Cancel</a>
             </form>
 
