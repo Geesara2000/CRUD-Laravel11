@@ -43,7 +43,7 @@
                             </div>
                         </td>
                         <td>
-                            <a href="" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('user.edit',['id'=> $row->id]) }}" class="btn btn-primary">Edit</a>
                             <button class="btn btn-danger">Delete</button>
                         </td>
                     </tr>

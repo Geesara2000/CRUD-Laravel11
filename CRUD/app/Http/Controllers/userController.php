@@ -74,7 +74,9 @@ class userController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $title = 'Update User';
+        $edit = User::findOrFail($id);
+        return view('admin.add_edit_user',compact('title','edit'));
     }
 
     /**
