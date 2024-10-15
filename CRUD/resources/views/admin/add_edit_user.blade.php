@@ -4,7 +4,7 @@
 <div class="container">
     <div class="col-md-12">
         <div class="form-appl">
-            <h3>{{ $title }}</h3>
+            <h3 class="mt-3">{{ $title }}</h3>
 
             <form class="form1" action="@if (isset($edit->id)) {{ route('user.update', ['id' => $edit->id]) }}@else{{ route('user.store') }} @endif" method="POST" enctype="multipart/form-data">
                 @csrf

@@ -13,27 +13,27 @@ use Illuminate\Support\Facades\Session as FacadesSession;
 
 class userController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    //   Display a listing of the resource.
+
     public function index()
     {
         $users = User::oldest('id')->get();
         return view('admin.index',compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
+    //   Show the form for creating a new resource.
+
     public function create()
     {
         $title = 'Add New User';
         return view('admin.add_edit_user',compact('title'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
+    //   Store a newly created resource in storage.
+
     public function store(Request $request)
     {
         $request->validate(
@@ -66,17 +66,10 @@ class userController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
+    //   Show the form for editing the specified resource.
+
     public function edit(string $id)
     {
         $title = 'Update User';
@@ -84,9 +77,9 @@ class userController extends Controller
         return view('admin.add_edit_user',compact('title','edit'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
+    //   Update the specified resource in storage.
+
     public function update(Request $request, string $id)
     {
         $request->validate(
@@ -120,9 +113,9 @@ class userController extends Controller
         return redirect()->route('user.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
+    //   Remove the specified resource from storage.
+
     public function destroy(Request $request)
     {
         $userData = User::findOrFail($request->user_id);

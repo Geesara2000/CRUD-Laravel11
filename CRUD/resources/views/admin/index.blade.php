@@ -4,7 +4,7 @@
 
 <div class="container">
 
-    <h2>CRUD</h2>
+    <h2 class="mt-3">Laravel-11 CRUD With Upload Image</h2>
 
     <div class="text-end mb-5">
         <a href="{{ route('user.create') }}" class="btn btn-primary">Add New User</a>
