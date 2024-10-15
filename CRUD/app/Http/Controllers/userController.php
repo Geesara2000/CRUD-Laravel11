@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+
+
 use Illuminate\Http\Request;
 use App\Models\User;
+
 use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session as FacadesSession;
 
 class userController extends Controller
 {
@@ -55,7 +60,7 @@ class userController extends Controller
         }
 
         $result = $insert->save();
-        Session() -> flash('success', 'User registered successfully');
+        FacadesSession::flash('success', 'User registered successfully');
         return redirect()->route('user.index');
 
 
@@ -84,7 +89,35 @@ class userController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate(
+            [
+                'name' => 'required',
+                'email' => 'required|email|unique:users,email,' . $id,
+                'photo' => 'mimes:png,jpeg,jpg|max:2048',
+            ]
+        );
+        $update = User::findOrFail($id);
+        $update->name = $request->name;
+        $update->email = $request->email;
+
+        if ($request->hasfile('photo')) {
+            $filePath = public_path('uploads');
+            $file = $request->file('photo');
+            $file_name = time() . $file->getClientOriginalName();
+            $file->move($filePath, $file_name);
+            // delete old photo
+            if (!is_null($update->photo)) {
+                $oldImage = public_path('uploads/' . $update->photo);
+                if (File::exists($oldImage)) {
+                    unlink($oldImage);
+                }
+            }
+            $update->photo = $file_name;
+        }
+
+        $result = $update->save();
+        FacadesSession::flash('success', 'User updated successfully');
+        return redirect()->route('user.index');
     }
 
     /**
@@ -93,5 +126,6 @@ class userController extends Controller
     public function destroy(string $id)
     {
         //
-    }
+}
+
 }
